@@ -71,4 +71,4 @@ const SignUp = ({ onSwitchMode }) => {
 }
 
 export default SignUp
- 
+  
