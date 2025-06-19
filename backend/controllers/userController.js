@@ -90,7 +90,7 @@ export async function updateProfile(req,res){
         return res.status(400).json({success:false,message:"valid name and email required"});
     }
     try{
-        const exist = await User.findOne({emai,_id:{$ne: req.user.id}});
+        const exist = await User.findOne({email,_id:{$ne: req.user.id}});
 
         if(exist){
             return res.status(409).json({success:false,message:"Email already in use by another account"});
@@ -120,7 +120,7 @@ export async function updatePassword(req,res) {
             return res.status(404).json({success:false,message:"User not found"});
 
         }
-        const mathc= await bcrypt.compare(currentPassword,user.password);
+        const match= await bcrypt.compare(currentPassword,user.password);
         if(!match){
             return res.status(401).json({success:false,message:"Current password incorrect"});
         }
