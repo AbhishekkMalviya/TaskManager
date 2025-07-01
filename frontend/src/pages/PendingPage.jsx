@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { layoutClasses, SORT_OPTIONS } from '../assets/dummy'
-import { Filter, ListChecks } from 'lucide-react'
+import { Clock, Filter, ListChecks, Plus } from 'lucide-react'
 import {useOutletContext} from 'react-router-dom';
 import { useMemo } from 'react';
+import TaskItem from '../components/TaskItem'
+import TaskModal from '../components/TaskModal'
 
 const API_BASE = 'http://localhost:4000/api/tasks'
 
@@ -68,6 +70,58 @@ t.completed.toLowerCase() === 'No')
           </div>
         </div>
       </div>
+
+<div className={layoutClasses.addBox} onClick={() => setShowModal(true)}>
+  <div className=' flex items-center justify-center gap-3 text-gray-500 group-hover:text-purple-600 transition-colors'>
+    <div className=' w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-200'>
+      <Plus className=' text-purple-500' size={18}/>
+    </div>
+    <span className='font-medium'>
+      Add New Task
+    </span>
+  </div>
+</div>
+<div className=' space-y-4 '>
+  {sortedPendingTasks.length ===0 ? (
+    <div className={layoutClasses.emptyState}>
+      <div className=' max-w-xs mx-auto py-6'>
+        <div className={layoutClasses.emptyIconBg}>
+          <Clock className=' w-8 h-8 text-purple-500' />
+        </div>
+
+        <h3 className=' text-lg font-semibold text-gray-800 mb-2'>
+          All Caught Up!
+        </h3>
+        <p className=' text-sm text-gray-500 mb-4'>
+          No Pending Tasks- Great Work!
+        </p>
+        <button onClick={() => setShowModal(true)}
+          className={layoutClasses.emptyBtn}>
+            Create New Task 
+        </button> 
+        </div>
+        </div>
+  ) : (
+    sortedPendingTasks.map(task => (
+      <TaskItem key= {task._id || task.id}
+      task={task}
+      showCompletedCheckbox onDelete={() => handleDelete(task._id || task.id)}
+      onToggleComplete={() => handleToggleComplete(
+        task._id || task.id,
+        t.completed
+      )}
+      onEdit={() => {setSelectedTask(task); setShowModal(true)}}
+      onRefresh={refreshTasks} />
+    ))
+  )}
+</div>
+<TaskModal isOpen = { !!selectedTask || showModal}
+onClose={() => {
+  setShowModal(false)
+  setSelectedTask(null)
+  refreshTasks()
+}}
+taskToEdit={selectedTask} />
     </div>
   )
 }

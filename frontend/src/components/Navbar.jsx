@@ -26,7 +26,9 @@ const Navbar = ({ user = {}, onLogout }) => {
                         <div className=' absolute -bottom-1 -middle-1 w-3 h-3 bg-white rounded-full shadow-md animate-ping' />
                     </div>
                     {/* BRAND NAME  */}
-                    <span className=' text-2xl font-extrabold bg-gradient-to-r from-fuchsia-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent tracking-wide '> Taskflow </span>
+                    <span className=' text-2xl font-extrabold bg-gradient-to-r from-fuchsia-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent tracking-wide '> Task Manager
+                         </span>
+                         {/* <p className=' text-xs mt-1 font-extralight text-shadow-gray-0'>-By Abhishek</p> */}
                 </div>
 
                 {/* RIGHT SIDE  */}
