@@ -3,11 +3,20 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronDown, LogOut, Settings, Zap } from 'lucide-react';
 
 const Navbar = ({ user = {}, onLogout }) => {
-    
+
     const menuref = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
+    useState(() => {
+        const handleClickOutside = (event) => {
+            if (menuref.current && !menuref.current.containers(event.targer)) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener("mouseDown", handleClickOutside)
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [])
     const handleMenuToggle = () => {
         setMenuOpen((prev) => !prev);
     }
@@ -27,8 +36,8 @@ const Navbar = ({ user = {}, onLogout }) => {
                     </div>
                     {/* BRAND NAME  */}
                     <span className=' text-2xl font-extrabold bg-gradient-to-r from-fuchsia-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent tracking-wide '> Task Manager
-                         </span>
-                         {/* <p className=' text-xs mt-1 font-extralight text-shadow-gray-0'>-By Abhishek</p> */}
+                    </span>
+                    {/* <p className=' text-xs mt-1 font-extralight text-shadow-gray-0'>-By Abhishek</p> */}
                 </div>
 
                 {/* RIGHT SIDE  */}
