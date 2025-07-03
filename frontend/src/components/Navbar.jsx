@@ -7,11 +7,12 @@ const Navbar = ({ user = {}, onLogout }) => {
     const menuref = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
-
+// USE STATE FUNCTION
     useState(() => {
         const handleClickOutside = (event) => {
             if (menuref.current && !menuref.current.containers(event.targer)) {
                 setMenuOpen(false);
+
             }
         }
         document.addEventListener("mouseDown", handleClickOutside)
@@ -21,7 +22,7 @@ const Navbar = ({ user = {}, onLogout }) => {
         setMenuOpen((prev) => !prev);
     }
     const handleLogout = () => {
-        setMenuOpen(false),
+        setMenuOpen(true),
             onLogout();
     }
     return (
