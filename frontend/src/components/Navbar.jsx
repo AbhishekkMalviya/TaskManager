@@ -22,7 +22,7 @@ const Navbar = ({ user = {}, onLogout }) => {
         setMenuOpen((prev) => !prev);
     }
     const handleLogout = () => {
-        setMenuOpen(true),
+        setMenuOpen(false),
             onLogout();
     }
     return (
